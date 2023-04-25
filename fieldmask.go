@@ -1,12 +1,37 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"reflect"
 	"strconv"
 )
 
 func main() {
+	inset := InsetStruct{Int: 32}
+	str := Struct{Int: 32, String: "s", Struct: inset}
+	test := EncodeTest{
+		Int:    0,
+		String: "",
+		Struct: str,
+	}
+	set := EncodeTest{
+		Int:    32,
+		String: "helo",
+		Struct: str,
+	}
+	nilset := EncodeTest{
+		Int:    nil,
+		String: nil,
+		Struct: str,
+	}
+
+	zero, _ := json.Marshal(test)
+	fmt.Println(string(zero))
+	exp, _ := json.Marshal(set)
+	fmt.Println(string(exp))
+	nils, _ := json.Marshal(nilset)
+	fmt.Println(string(nils))
 	ex := Example{}
 	fs := FilterSet{}
 	Inspect(fs)
@@ -190,4 +215,22 @@ type Resource struct {
 
 func ListResources(orgId, resourceId string, filters ...Filter) []Resource {
 	return nil
+}
+
+type InsetStruct struct {
+	Int int `json:"int,omitempty"`
+}
+type Struct struct {
+	Int    int         `json:"int,omitempty"`
+	String string      `json:"string,omitempty"`
+	Struct InsetStruct `json:"struct,omitempty"`
+}
+type EncodeTest struct {
+	Int    int    `json:"int,omitempty"`
+	String string `json:"string,omitempty"`
+	Struct Struct `json:"struct,omitempty"`
+
+	UnsetInt    int    `json:"unset_int,omitempty"`
+	UnsetString string `json:"unset_string,omitempty"`
+	UnsetStruct Struct `json:"unset_struct,omitempty"`
 }
