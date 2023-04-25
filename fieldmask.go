@@ -14,8 +14,15 @@ func main() {
 }
 func printField(field reflect.StructField) {
 	fmt.Printf("\tFieldName:\t%s\r\n", field.Name)
+	fmt.Printf("\tFieldIndex:\t%d\r\n", field.Index)
 	fmt.Printf("\tTypeName:\t%s\r\n", field.Type.Name())
 	fmt.Printf("\tTypePath:\t%s\r\n", field.Type.PkgPath())
+	printTags(field)
+
+}
+func printTags(field reflect.StructField) {
+	fmt.Printf("\tTags:\t%s\r\n", field.Tag)
+
 }
 
 func Inspect(item any) bool {
@@ -35,13 +42,14 @@ func Inspect(item any) bool {
 	field_count := typ.NumField()
 	fmt.Printf("fields: %d\r\n", field_count)
 	fmt.Println("Fields:")
-	printField(typ.Field(0))
-	printField(typ.Field(1))
-	printField(typ.Field(2))
-	printField(typ.Field(3))
-	printField(typ.Field(4))
-
 	i := 0
+	for i < typ.NumField() {
+
+		printField(typ.Field(i))
+		i++
+	}
+
+	i = 0
 	maskIndex := make(map[int]reflect.StructField)
 
 	for i < field_count {
