@@ -51,12 +51,23 @@ func Size(value int) ResourceOption {
 	return func(target *Resource) { target.Size = value; target.fieldMask.Set(target.Size) }
 }
 
-func UpdateResource(resourceId string, updates ...ResourceOption) {
+func UpdateResource(resourceId string, updates ...ResourceOption) Resource {
     resouce := &Resource{Id: resourceId} 
     for _, update := range updates {
         update(resource)
     }
     json := CustomJSON.Marshall(resource, RecalculateEtag(), Include(resource.updateMask))
 
+    // make request
+    
+
+}
+func GetResource(id string) Resource {
+    return Resource{id: id, Size: 32, Name: "Resource 1", Etag: "837983798327987"}
+}
+
+func main() {
+    resource := GetResource("resource-0001")
+    updated := UpdateResource(resource.id, Name("Resource 2"), Size(64))
 }
 ```

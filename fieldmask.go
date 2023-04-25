@@ -72,12 +72,22 @@ func Inspect(item any) bool {
 
 type FieldMask uint16
 
-func (mask FieldMask) Set(field int) {
+func (mask FieldMask) SetIndex(field int) {
 	mask |= (1 << field)
 
 }
-func (mask FieldMask) Clear(field int) {
+func (mask FieldMask) ClearIndex(field int) {
 	mask &= ^(1 << field)
+}
+
+func (mask FieldMask) Set(field any) {
+
+}
+func (mask FieldMask) Clear(field any) {
+
+}
+func (mask FieldMask) Zero() {
+	mask = 0
 }
 
 // func Tags(item any) (map[int]reflect.StructField, bool) {
