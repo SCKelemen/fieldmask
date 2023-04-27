@@ -5,9 +5,9 @@ type Example struct {
 	fieldMask FieldMask
 
 	String string `json:"example_string,omitempty" 	fieldmask:"1"`
-	Int    int32  `json:"example_int,omitempty 		fieldmask:"2"`
-	Bool   bool   `json:"example_bool,omitempty		fieldmask:"3"`
-	Field  string `json:"example_field,omitempty 	fieldmask:"4"`
+	Int    int32  `json:"example_int,omitempty" 	fieldmask:"2"`
+	Bool   bool   `json:"example_bool,omitempty"	fieldmask:"3"`
+	Field  string `json:"example_field,omitempty" 	fieldmask:"4"`
 }
 
 func String(value string) ExampleOption {

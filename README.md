@@ -33,9 +33,9 @@ zero value or if it was unset.
 type Resource struct {
     updateMask FieldMask 
 
-    Id string `json:"id,omitempty" fieldMask"exclude"` // Generate by server, output only, hide from etag mask
-    Name string `json:"id,omitempty" fieldMask"1"`  // reorder mask fields
-    Size int`json:"id,omitempty" fieldMask"2"`   // reorder mask fields
+    Id string `json:"id,omitempty" fieldMask:"exclude"` // Generate by server, output only, hide from etag mask
+    Name string `json:"id,omitempty" fieldMask:"1"`  // reorder mask fields
+    Size int`json:"id,omitempty" fieldMask:"2"`   // reorder mask fields
 
     Etag  string `json:"etag,omitempty" fieldMask:"exclude"`    // exclude mask, and mark as etag field
 
@@ -59,7 +59,7 @@ func UpdateResource(resourceId string, updates ...ResourceOption) Resource {
     json := CustomJSON.Marshall(resource, RecalculateEtag(), Include(resource.updateMask))
 
     // make request
-    
+
 
 }
 func GetResource(id string) Resource {
